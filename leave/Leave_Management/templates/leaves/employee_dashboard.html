@@ -67,7 +67,6 @@
                   <tr>
                     <td>
                       {{ l.start_date|date:"d M, Y" }} &rarr; {{ l.end_date|date:"d M, Y" }}
-                      <div class="small text-muted">{{ l.start_date|timesince:l.end_date if False }}</div>
                     </td>
                     <td><span class="badge bg-primary">{{ l.get_leave_type_display }}</span></td>
                     <td>
