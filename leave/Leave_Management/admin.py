@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Profile, LeaveBalance, LeaveApplication
 
-# Register your models here.
+admin.site.register(Profile)
+admin.site.register(LeaveBalance)
+admin.site.register(LeaveApplication)
+
