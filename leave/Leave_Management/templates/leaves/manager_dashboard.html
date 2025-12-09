@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Manager Dashboard — LeaveMgmt{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Team Overview</h4>
+    <small class="text-muted">Manager dashboard</small>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card mb-4">
+        <div class="card-header">
+          <strong>Pending Approvals</strong>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Employee</th>
+                  <th>Dates</th>
+                  <th>Type</th>
+                  <th>Reason</th>
+                  <th class="text-end">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for l in pending %}
+                  <tr>
+                    <td>
+                      <div class="fw-semibold">{{ l.user.username|title }}</div>
+                      <div class="text-muted small">
+                        {{ l.user.profile.get_role_display|default:"Employee" }}
+                      </div>
+                    </td>
+                    <td>
+                      <div>{{ l.start_date|date:"M d, Y" }} → {{ l.end_date|date:"M d, Y" }}</div>
+                      <div class="text-muted small">{{ l|length }} day{% if l|length != 1 %}s{% endif %}</div>
+                    </td>
+                    <td>
+                      <span class="badge bg-primary">{{ l.get_leave_type_display }}</span>
+                    </td>
+                    <td class="text-truncate" style="max-width:220px;">
+                      {{ l.reason|default:"—" }}
+                    </td>
+                    <td class="text-end">
+                      <a class="btn btn-sm btn-outline-primary" href="{% url 'approve_leave' l.pk %}">Open</a>
+                    </td>
+                  </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="5" class="text-center py-3">No pending approvals</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card mb-4">
+        <div class="card-header">
+          <strong>Team Calendar (by start date)</strong>
+        </div>
+        <div class="card-body">
+          {% if calendar %}
+            {% for date_iso, leaves in calendar.items %}
+              <div class="mb-2">
+                <div class="fw-semibold">{{ date_iso|date:"M d, Y" }}</div>
+                <ul class="mb-2 ps-3 small">
+                  {% for l in leaves %}
+                    <li>
+                      <span class="fw-medium">{{ l.user.username|title }}</span>:
+                      {{ l.start_date|date:"d M" }} → {{ l.end_date|date:"d M" }}
+                      <span class="text-muted">({{ l.get_leave_type_display }})</span>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p class="mb-0 text-muted">No team leaves scheduled.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
