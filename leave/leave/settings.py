@@ -41,11 +41,7 @@ SECRET_KEY = "django-insecure-s!=@8tko#6k_54_75ydygd-$9@oce=@()4i=lkhkezt!bb1p%-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "leave-management-sys.onrender.com",  # your Render domain
-    "127.0.0.1",
-    "localhost"
-]
+ALLOWED_HOSTS = ["*"]
 
 
 
