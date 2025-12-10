@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: leave-management
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn leave.wsgi:application"
+    rootDirectory: "./"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
