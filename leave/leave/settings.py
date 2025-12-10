@@ -42,10 +42,11 @@ SECRET_KEY = "django-insecure-s!=@8tko#6k_54_75ydygd-$9@oce=@()4i=lkhkezt!bb1p%-
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "leave-management-system-7owy.onrender.com",
-    "localhost",
-    "127.0.0.1"
+    "leave-management-sys.onrender.com",  # your Render domain
+    "127.0.0.1",
+    "localhost"
 ]
+
 
 
 LOGOUT_REDIRECT_URL = 'login'
