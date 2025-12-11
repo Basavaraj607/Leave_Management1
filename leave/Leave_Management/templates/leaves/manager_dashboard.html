@@ -2,6 +2,20 @@
 {% block title %}Manager Dashboard — LeaveMgmt{% endblock %}
 
 {% block content %}
+<style>
+  /* small helpers for calendar list */
+  .calendar-entry { display:flex; justify-content:space-between; gap:0.5rem; align-items:center; flex-wrap:wrap; }
+  .calendar-meta { color:#6b7280; font-size:.9rem; }
+  .status-badge { font-size:0.75rem; padding:0.25rem 0.45rem; border-radius:0.45rem; }
+  .status-pending { background:#fbbf24; color:#1f2937; } /* yellow */
+  .status-approved { background:#22c55e; color:#fff; }  /* green */
+  .status-rejected { background:#ef4444; color:#fff; }  /* red */
+  .status-cancelled { background:#9ca3af; color:#fff; } /* gray */
+  @media (max-width:576px){
+    .card-body ul { padding-left:1rem; }
+  }
+</style>
+
 <div class="container">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h4 class="mb-0">Team Overview</h4>
@@ -69,14 +83,38 @@
         <div class="card-body">
           {% if calendar %}
             {% for date_iso, leaves in calendar.items %}
-              <div class="mb-2">
+              <div class="mb-3">
                 <div class="fw-semibold">{{ date_iso|date:"M d, Y" }}</div>
-                <ul class="mb-2 ps-3 small">
+                <ul class="mb-2 ps-3 small list-unstyled">
                   {% for l in leaves %}
-                    <li>
-                      <span class="fw-medium">{{ l.user.username|title }}</span>:
-                      {{ l.start_date|date:"d M" }} → {{ l.end_date|date:"d M" }}
-                      <span class="text-muted">({{ l.get_leave_type_display }})</span>
+                    <li class="mb-1">
+                      <div class="calendar-entry">
+                        <div>
+                          <span class="fw-medium">{{ l.user.username|title }}</span>:
+                          {{ l.start_date|date:"d M" }} → {{ l.end_date|date:"d M" }}
+                          <span class="text-muted">({{ l.get_leave_type_display }})</span>
+                        </div>
+
+                        {# Status badge block #}
+                        <div class="ms-2">
+                          {% if l.status == 'APP' or l.status == 'approved' %}
+                            <span class="status-badge status-approved" aria-label="Approved">Approved</span>
+                          {% elif l.status == 'REJ' or l.status == 'rejected' %}
+                            <span class="status-badge status-rejected" aria-label="Rejected">Rejected</span>
+                          {% elif l.status == 'CAN' or l.status == 'cancelled' or l.status == 'cancel' %}
+                            <span class="status-badge status-cancelled" aria-label="Cancelled">Cancelled</span>
+                          {% else %}
+                            <span class="status-badge status-pending" aria-label="Pending">Pending</span>
+                          {% endif %}
+                        </div>
+                      </div>
+
+                      {# optional short reason line wrapped to next row on small screens #}
+                      {% if l.reason %}
+                        <div class="calendar-meta mt-1 text-truncate" style="max-width:100%;">
+                          {{ l.reason|truncatechars:80 }}
+                        </div>
+                      {% endif %}
                     </li>
                   {% endfor %}
                 </ul>
