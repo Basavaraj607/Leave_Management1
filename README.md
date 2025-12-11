@@ -29,7 +29,7 @@ Backend: Django
 Frontend: HTML5, CSS3, Bootstrap 5  
 Database: SQLite (default Django database)  
 Authentication: Django Auth  
-Deployment: (Add your platform, e.g., Render / Railway / PythonAnywhere)
+Deployment: Render 
 
 ----------------------------------------------------------------------
 DATABASE SETUP INSTRUCTIONS (SQLite)
@@ -63,6 +63,7 @@ STEP-BY-STEP INSTRUCTIONS TO RUN THE PROJECT LOCALLY
 1. Clone the project:
 
 git clone https://github.com/Basavaraj607/Leave_Management1.git
+
 cd leave-management
 
 2. Create a virtual environment:
