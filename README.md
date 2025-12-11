@@ -62,7 +62,7 @@ STEP-BY-STEP INSTRUCTIONS TO RUN THE PROJECT LOCALLY
 
 1. Clone the project:
 
-git clone https://github.com/your-repo/leave-management.git
+git clone https://github.com/Basavaraj607/Leave_Management1.git
 cd leave-management
 
 2. Create a virtual environment:
