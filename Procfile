@@ -1,1 +1,1 @@
-web: gunicorn leave.wsgi:application
+web: gunicorn leave.wsgi:application --bind 0.0.0.0:$PORT --workers 2
