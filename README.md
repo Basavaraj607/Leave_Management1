@@ -97,8 +97,8 @@ http://127.0.0.1:8000/
 DEPLOYED APPLICATION URL
 ----------------------------------------------------------------------
 
-https://your-deployment-url.com
-(Replace with your actual link)
+https://leave-management1.onrender.com
+
 
 ----------------------------------------------------------------------
 TEST LOGIN CREDENTIALS
